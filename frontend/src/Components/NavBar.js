@@ -4,7 +4,9 @@ import styled from 'styled-components/macro';
 const NavBar = () => {
 	return (
 		<Nav className="nav">
-			<Link to="/home">Habit Tracker</Link>
+			<Link to="/home" style={linkStyle}>
+				Habit Tracker
+			</Link>
 			<Ul>
 				<li>
 					<AnchorLink href="/home">Home</AnchorLink>
@@ -26,8 +28,8 @@ export const Nav = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	gap: 2rem;
-	padding: 1rem;
+	font-weight: bold;
+	padding: 1rem 2rem;
 `;
 
 export const Ul = styled.ul`
@@ -36,6 +38,7 @@ export const Ul = styled.ul`
 	list-style: none;
 	display: flex;
 	gap: 1rem;
+	font-weight: bold;
 `;
 
 export const AnchorLink = styled.a`
@@ -45,10 +48,19 @@ export const AnchorLink = styled.a`
 	display: flex;
 	align-items: center;
 	padding: 0.25rem;
+	&:hover,
+	&:focus {
+		color: palevioletred;
+	}
+	&:active {
+		color: red;
+	}
 `;
 
-/* export const HomeLink = styled.Link`
-	list-style: none;
-`;
- */
+const linkStyle = {
+	margin: '1rem',
+	textDecoration: 'none',
+	color: '#04363d',
+	fontSize: '2rem',
+};
 export default NavBar;
