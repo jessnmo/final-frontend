@@ -1,19 +1,18 @@
 //import logo from './logo.svg';
 //import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import About from './Components/About';
-import NavBar from './Components/NavBar';
+//import NavBar from './Components/NavBar';
 import Home from './Components/Home';
-import Login from './Components/Login';
+//import Login from './Components/Login';
+import MyHabits from './Components/MyHabits';
 
 const App = () => {
 	return (
 		<BrowserRouter>
-			<NavBar />
+			{/* <NavBar /> */}
 			<Routes>
-				<Route path="/home" element={<Home />} />
-				<Route path="/about" element={<About />} />
-				<Route path="login" element={<Login />} />
+				<Route path="/home" element={<Home />} exact={true} />
+				<Route path="/habits" element={<MyHabits />} exact={true} />
 			</Routes>
 		</BrowserRouter>
 	);
