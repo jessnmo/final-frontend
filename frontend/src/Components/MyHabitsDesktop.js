@@ -41,7 +41,7 @@ const HeaderItem = styled.div`
 		color: #8bd42d;
 	}
 	&:active {
-		color: red;
+		color: #8bd42d;
 	}
 `;
 const MyHabitsDesktop = () => {

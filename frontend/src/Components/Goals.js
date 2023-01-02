@@ -38,10 +38,17 @@ const GoalRow = styled.div`
 	justify-content: space-between;
 	color: #616b25;
 	align-items: center;
-	//padding-right: 50px;
 	margin-bottom: 50px;
 	:last-child {
 		margin-bottom: 0;
+	}
+	font: 1rem;
+	&:hover,
+	&:focus {
+		color: #8bd42d;
+	}
+	&:active {
+		color: #8bd42d;
 	}
 `;
 
