@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+/* import { useDispatch, useSelector } from 'react-redux';
+import { getGoals } from '../features /goalsSlice';
+import { useEffect } from 'react'; */
 
 const Title = styled.div`
 	font-size: 30px;
@@ -77,6 +80,13 @@ const Goals = () => {
 		{ id: 2, name: 'Social Life' },
 		{ id: 3, name: 'Diet/Macro' },
 	];
+
+	/* const dispatch = useDispatch();
+	//const goalState = useSelector((state) => state.goals);
+
+	useEffect(() => {
+		dispatch(getGoals()), [dispatch]; //dispatch the getGoals thunk action creator
+	}); */
 	return (
 		<GoalsContainer>
 			<GoalsHeader>
