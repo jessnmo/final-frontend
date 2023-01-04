@@ -1,28 +1,28 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import Axios from 'axios';
+//import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+//import axios from 'axios';
 
-//const url = 'localhost:8080/goals';
+/* const url = 'localhost:8080/goals';
 export const getGoals = createAsyncThunk(
-	'goals/get',
-	async (thunkAPI) => {
+	'goals/get', */
+/* async (thunkAPI) => {
 		try {
-			const response = await Axios.get('/goals');
+			const response = await axios.get('/goals');
 			return response.data;
 		} catch (error) {
 			const { rejectWithValue } = thunkAPI;
 			return rejectWithValue(error.response.data);
 		}
-	}
-	/* () => {
+	} */
+/* () => {
 		return fetch(url)
 			.then((res) => res.json())
 			.catch((error) => console.log(error));
-	} */
+	}
 );
 
 const initialGoalState = {
 	goalsList: [],
-	loading: 'idle',
+	isLoading: true,
 	error: null,
 };
 
@@ -32,24 +32,17 @@ const goalsSlice = createSlice({
 	reducers: {},
 	extraReducers: {
 		[getGoals.pending]: (state) => {
-			if (state.loading === 'idle') {
-				state.loading = 'pending';
-			}
+			state.isLoading = true;
 		},
 		[getGoals.fulfilled]: (state, action) => {
 			console.log(action);
-			if (state.loading === 'pending') {
-				state.loading = 'idle';
-				state.getGoals = action.payload;
-			}
+			state.isLoading = false;
+			state.getGoals = action.payload;
 		},
-		[getGoals.rejected]: (state, action) => {
-			if (state.loading === 'pending') {
-				state.loading = 'idle';
-				state.error = action.error;
-			}
+		[getGoals.rejected]: (state) => {
+			state.isLoading = false;
 		},
 	},
 });
 
-export default goalsSlice.reducer;
+export default goalsSlice.reducer; */

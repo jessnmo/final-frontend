@@ -1,7 +1,8 @@
 import styled from 'styled-components';
-/* import { useDispatch, useSelector } from 'react-redux';
-import { getGoals } from '../features /goalsSlice';
-import { useEffect } from 'react'; */
+//import { useDispatch, useSelector } from 'react-redux';
+//import { getGoals } from '../features /goalsSlice';
+//import { useEffect } from 'react';
+//import goalsSlice from '../features /goalsSlice';
 
 const Title = styled.div`
 	font-size: 30px;
@@ -73,6 +74,14 @@ const Action = styled.div`
 	}
 `;
 
+/* const dispatch = useDispatch();
+	const goalState = useSelector((state) => state.goals);
+	const { goalsList, isLoading, error } = goalState;
+
+	useEffect(() => {
+		dispatch(() => getGoals()), []; //dispatch the getGoals thunk action creator
+	}); */
+
 const Goals = () => {
 	const ListOfGoals = [
 		{ id: 0, name: 'Weight Loss' },
@@ -80,13 +89,6 @@ const Goals = () => {
 		{ id: 2, name: 'Social Life' },
 		{ id: 3, name: 'Diet/Macro' },
 	];
-
-	/* const dispatch = useDispatch();
-	//const goalState = useSelector((state) => state.goals);
-
-	useEffect(() => {
-		dispatch(getGoals()), [dispatch]; //dispatch the getGoals thunk action creator
-	}); */
 	return (
 		<GoalsContainer>
 			<GoalsHeader>
@@ -101,7 +103,7 @@ const Goals = () => {
 					<GoalRow>
 						<GoalName key={item.id}>{item.name}</GoalName>
 						<Action>
-							<img src="images/pen.png" alt="edit" />{' '}
+							<img src="images/pen.png" alt="edit" />
 							<img src="images/bin.png" alt="bin" />
 						</Action>
 					</GoalRow>
