@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useState } from 'react';
 
 const UserInfoContainer = styled.div`
 	padding-top: 1rem;
@@ -49,7 +51,35 @@ const InputSection = styled.div`
 	}
 `;
 
+const BtnContainer = styled.div`
+	display: flex;
+	justify-content: center;
+`;
+
+const Button = styled.div`
+	padding: 8px 10px 8px 10px;
+	background-color: #616b25;
+	color: whitesmoke;
+	border: none;
+	border-radius: 25px;
+	&:hover {
+		opacity: 80%;
+	}
+`;
+
+const StyledLink = styled(Link)`
+	text-decoration: none;
+	color: #616b25;
+	&:hover {
+		color: #8bd42d;
+	}
+`;
+
 const Signup = () => {
+	const [username, setUsername] = useState('');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+
 	return (
 		<UserInfoContainer>
 			<PageTitle>Title</PageTitle>
@@ -58,13 +88,41 @@ const Signup = () => {
 				<FormContainer>
 					<InputSection>
 						<label htmlFor="username">Username</label>
-						<input type="text" id="username" placeholder="username" />
+						<input
+							type="text"
+							id="username"
+							placeholder="username"
+							required
+							value={username}
+							onChange={(e) => setUsername(e.target.value)}
+						/>
 						<label htmlFor="email">Email</label>
-						<input type="text" id="email" placeholder="email" />
+						<input
+							type="text"
+							id="email"
+							placeholder="email"
+							required
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+						/>
 						<label htmlFor="password">Password</label>
-						<input type="password" id="password" placeholder="password" />
+						<input
+							type="password"
+							id="password"
+							placeholder="password"
+							required
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+						/>
 					</InputSection>
+					<BtnContainer>
+						<Button>Sign Up Now</Button>
+					</BtnContainer>
 				</FormContainer>
+				<section>
+					Already have an account? {''}
+					<StyledLink to="/signin">Log in here</StyledLink>
+				</section>
 			</UserActionContainer>
 		</UserInfoContainer>
 	);
