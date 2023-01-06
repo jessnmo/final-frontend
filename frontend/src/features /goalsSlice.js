@@ -1,10 +1,10 @@
-//import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 //import axios from 'axios';
 
-/* const url = 'localhost:8080/goals';
-export const getGoals = createAsyncThunk(
-	'goals/get', */
-/* async (thunkAPI) => {
+//const url = 'localhost:8080/goals';
+/* export const getGoals = createAsyncThunk(
+	'goals/getGoals',
+	/* async (thunkAPI) => {
 		try {
 			const response = await axios.get('/goals');
 			return response.data;
@@ -13,36 +13,45 @@ export const getGoals = createAsyncThunk(
 			return rejectWithValue(error.response.data);
 		}
 	} */
-/* () => {
-		return fetch(url)
-			.then((res) => res.json())
-			.catch((error) => console.log(error));
-	}
-);
+/* async () => {
+		return fetch('https://jsonplaceholder.typicode.com/posts').then((res) =>
+			res.json()
+		);
+	} */
+//); */
 
 const initialGoalState = {
 	goalsList: [],
-	isLoading: true,
+	status: null,
 	error: null,
 };
 
 const goalsSlice = createSlice({
 	name: 'goals',
 	initialState: initialGoalState,
-	reducers: {},
-	extraReducers: {
-		[getGoals.pending]: (state) => {
-			state.isLoading = true;
+	reducers: {
+		addGoals: (state, action) => {
+			//state.goalsList = [...action.payload]
+			state.goalsList.push(action.payload);
 		},
-		[getGoals.fulfilled]: (state, action) => {
-			console.log(action);
-			state.isLoading = false;
-			state.getGoals = action.payload;
-		},
-		[getGoals.rejected]: (state) => {
-			state.isLoading = false;
+		deleteGoal: (state, action) => {
+			state.goalsList.splice(action.payload, 1);
 		},
 	},
+	/* extraReducers: {
+		[getGoals.pending]: (state) => {
+			state.status = 'loading';
+		},
+		[getGoals.fulfilled]: (state, { payload }) => {
+			console.log(payload);
+			state.goalsList = payload;
+			state.status = 'success';
+		},
+		[getGoals.rejected]: (state) => {
+			state.status = 'failed';
+		},
+	}, */
 });
 
-export default goalsSlice.reducer; */
+const { addGoals, deleteGoal } = goalsSlice.actions;
+export default goalsSlice.reducer;

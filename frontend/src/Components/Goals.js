@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-//import { useDispatch, useSelector } from 'react-redux';
-//import { getGoals } from '../features /goalsSlice';
 //import { useEffect } from 'react';
+//import { useDispatch } from 'react-redux';
+//import { getGoals } from '../features /goalsSlice';
 //import goalsSlice from '../features /goalsSlice';
 
 const Title = styled.div`
@@ -74,21 +74,18 @@ const Action = styled.div`
 	}
 `;
 
-/* const dispatch = useDispatch();
-	const goalState = useSelector((state) => state.goals);
-	const { goalsList, isLoading, error } = goalState;
-
-	useEffect(() => {
-		dispatch(() => getGoals()), []; //dispatch the getGoals thunk action creator
-	}); */
-
 const Goals = () => {
 	const ListOfGoals = [
-		{ id: 0, name: 'Weight Loss' },
-		{ id: 1, name: 'Boot Camp' },
-		{ id: 2, name: 'Social Life' },
-		{ id: 3, name: 'Diet/Macro' },
+		{ id: 0, name: 'Goal 1' },
+		{ id: 1, name: 'Goal 2' },
+		{ id: 2, name: 'Goal 3' },
+		{ id: 3, name: 'Goal 4' },
 	];
+
+	//const dispatch = useDispatch();
+	//const goalState = useSelector((state) => state.goals);
+	//const { goalsList, isLoading, error } = goalState;
+
 	return (
 		<GoalsContainer>
 			<GoalsHeader>
