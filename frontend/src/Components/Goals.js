@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getGoals } from '../features /goalsSlice';
 
@@ -74,13 +74,8 @@ const Action = styled.div`
 `;
 
 const Goals = () => {
-	const ListOfGoals = [
-		{ id: 0, name: 'Goal 1' },
-		{ id: 1, name: 'Goal 2' },
-		{ id: 2, name: 'Goal 3' },
-		{ id: 3, name: 'Goal 4' },
-	];
-
+	const goalState = useSelector((state) => state.goals);
+	const { goalList, loading, error } = goalState;
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -89,24 +84,32 @@ const Goals = () => {
 
 	return (
 		<GoalsContainer>
-			<GoalsHeader>
-				<Title>GOALS</Title>
-				<AddBtn>
-					<img src="images/plus.png" alt="add goal button" />
-					ADD A GOAL
-				</AddBtn>
-			</GoalsHeader>
-			{ListOfGoals.map((item) => {
-				return (
-					<GoalRow>
-						<GoalName key={item.id}>{item.name}</GoalName>
-						<Action>
-							<img src="images/pen.png" alt="edit" />
-							<img src="images/bin.png" alt="bin" />
-						</Action>
-					</GoalRow>
-				);
-			})}
+			{error && <div>Error Fetching Goals</div>}
+			{loading === 'pending' ? (
+				<div>Loading...</div>
+			) : (
+				<>
+					<GoalsHeader>
+						<Title>GOALS</Title>
+						<AddBtn>
+							<img src="images/plus.png" alt="add goal button" />
+							ADD A GOAL
+						</AddBtn>
+					</GoalsHeader>
+					{goalList &&
+						goalList.map((item) => {
+							return (
+								<GoalRow>
+									<GoalName key={item.id}>{item.name}</GoalName>
+									<Action>
+										<img src="images/pen.png" alt="edit" />
+										<img src="images/bin.png" alt="bin" />
+									</Action>
+								</GoalRow>
+							);
+						})}
+				</>
+			)}
 		</GoalsContainer>
 	);
 };
