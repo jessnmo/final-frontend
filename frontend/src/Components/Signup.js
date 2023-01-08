@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { registerUser } from '../features /userSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const UserInfoContainer = styled.div`
 	padding-top: 1rem;
@@ -78,6 +78,10 @@ const StyledLink = styled(Link)`
 	}
 `;
 
+const ErrorMsg = styled.div`
+	color: red;
+`;
+
 const Signup = () => {
 	/* const [username, setUsername] = useState('');
 	const [email, setEmail] = useState('');
@@ -88,6 +92,10 @@ const Signup = () => {
 		email: '',
 		password: '',
 	});
+
+	const userState = useSelector((state) => state.user);
+	const { error } = userState.registerState;
+	const { loggedInUser } = userState;
 
 	//const userState = useSelector((state) => state.user);
 	const handleUserInfoChange = (e) => {
@@ -104,6 +112,18 @@ const Signup = () => {
 		dispatch(registerUser(userInfo));
 	};
 
+	const navigate = useNavigate;
+	useEffect(() => {
+		if (loggedInUser) {
+			navigate('/habits');
+		}
+	}, [loggedInUser, navigate]);
+
+	const findError = (inputName) => {
+		const errObj = error.find((err) => err.param === inputName);
+		return errObj ? errObj.msg : null;
+	};
+
 	return (
 		<UserInfoContainer>
 			<PageTitle>That's so Fetch</PageTitle>
@@ -112,6 +132,7 @@ const Signup = () => {
 				<FormContainer>
 					<InputSection>
 						<label htmlFor="username">Username</label>
+						{error && <ErrorMsg>{findError('username')}</ErrorMsg>}
 						<input
 							type="text"
 							id="username"
@@ -122,6 +143,7 @@ const Signup = () => {
 							onChange={handleUserInfoChange}
 						/>
 						<label htmlFor="email">Email</label>
+						{error && <ErrorMsg>{findError('email')}</ErrorMsg>}
 						<input
 							type="text"
 							id="email"
@@ -132,6 +154,7 @@ const Signup = () => {
 							onChange={handleUserInfoChange}
 						/>
 						<label htmlFor="password">Password</label>
+						{error && <ErrorMsg>{findError('password')}</ErrorMsg>}
 						<input
 							type="password"
 							id="password"
