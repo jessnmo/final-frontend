@@ -6,9 +6,11 @@ import { Provider } from 'react-redux';
 import reportWebVitals from './reportWebVitals';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import goalsReducer from './features /goalsSlice';
+import userReducer from './features /userSlice';
 
 const reducer = combineReducers({
 	goals: goalsReducer,
+	user: userReducer,
 });
 
 const store = configureStore({ reducer });

@@ -1,16 +1,8 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { useState } from 'react';
-//import user from '../features /user';
-/* import {
-	addUsername,
-	addEmail,
-	addPassword,
-	addAccessToken,
-} from '../features /user'; */
-//import userSlice from '../features/user';
-//import { batch, useEffect, useDispatch } from 'react-redux';
-//import { userNavigate } from 'react-router-dom';
+import { registerUser } from '../features /userSlice';
+import { useDispatch } from 'react-redux';
 
 const UserInfoContainer = styled.div`
 	padding-top: 1rem;
@@ -75,6 +67,7 @@ const Button = styled.div`
 	&:hover {
 		opacity: 80%;
 	}
+	cursor: pointer;
 `;
 
 const StyledLink = styled(Link)`
@@ -89,9 +82,6 @@ const Signup = () => {
 	/* const [username, setUsername] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState(''); */
-	//const [error, setError] = useState(null);
-	//const accessToken = useState((state) => state.user.accessToken);
-	//const navigate = userNavigate();
 
 	const [userInfo, setUserInfo] = useState({
 		username: '',
@@ -99,65 +89,26 @@ const Signup = () => {
 		password: '',
 	});
 
-	const handleUserInput = (e) => {
+	//const userState = useSelector((state) => state.user);
+	const handleUserInfoChange = (e) => {
 		const { id, value } = e.target;
 		setUserInfo((currentState) => ({
 			...currentState,
 			[id]: value,
 		}));
 	};
-	/* 
-	useEffect(() => {
-		if (accessToken) {
-			navigate('/habits');
-		}
-	}, [accessToken]);
 
 	const dispatch = useDispatch();
 
-	const handleFormSubmit = (e) => {
-		e.preventDefault();
-		const options = {
-			method: 'POST',
-			header: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				username: username,
-				email: email,
-				password: password,
-			}),
-		};
-
-		fetch('https://project-auth-5ohdkk2c7a-uc.a.run.app/', options)
-			.then((res) => res.json())
-			.then((data) => {
-				if (data.success) {
-					batch(() => {
-						dispatch(addUsername.data.res.username);
-						dispatch(addEmail.data.res.email);
-						dispatch(addPassword.data.res.password);
-						dispatch(addAccessToken.data.res.accessToken);
-						dispatch(catchError(null));
-					});
-				} else {
-					batch(() => {
-						dispatch(addUsername(null));
-						dispatch(addEmail(null));
-						dispatch(addPassword(null));
-						dispatch(addAccessToken(null));
-						dispatch(data.res);
-						setCatchError(data.res);
-					});
-				}
-			});
-	}; */
+	const handleSubmit = () => {
+		dispatch(registerUser(userInfo));
+	};
 
 	return (
 		<UserInfoContainer>
-			<PageTitle>Title</PageTitle>
+			<PageTitle>That's so Fetch</PageTitle>
 			<UserActionContainer>
-				<FormTitle>Signup to continue</FormTitle>
+				<FormTitle>Register to continue</FormTitle>
 				<FormContainer>
 					<InputSection>
 						<label htmlFor="username">Username</label>
@@ -166,7 +117,9 @@ const Signup = () => {
 							id="username"
 							placeholder="username"
 							required
-							onChange={handleUserInput}
+							//value={username}
+							//onChange={(e) => setUsername(e.target.value)}
+							onChange={handleUserInfoChange}
 						/>
 						<label htmlFor="email">Email</label>
 						<input
@@ -174,7 +127,9 @@ const Signup = () => {
 							id="email"
 							placeholder="email"
 							required
-							onChange={handleUserInput}
+							//value={email}
+							//onChange={(e) => setEmail(e.target.value)}
+							onChange={handleUserInfoChange}
 						/>
 						<label htmlFor="password">Password</label>
 						<input
@@ -183,11 +138,15 @@ const Signup = () => {
 							placeholder="password"
 							minLength="8"
 							required
-							onChange={handleUserInput}
+							//value={password}
+							//onChange={(e) => setPassword(e.target.value)}
+							onChange={handleUserInfoChange}
 						/>
 					</InputSection>
 					<BtnContainer>
-						<Button>Sign Up Now</Button>
+						<Button type="submit" onClick={handleSubmit}>
+							Register Now
+						</Button>
 					</BtnContainer>
 				</FormContainer>
 				<section>
