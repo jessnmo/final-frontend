@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-//import { useEffect } from 'react';
-//import { useDispatch } from 'react-redux';
-//import { getGoals } from '../features /goalsSlice';
-//import goalsSlice from '../features /goalsSlice';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { getGoals } from '../features /goalsSlice';
 
 const Title = styled.div`
 	font-size: 30px;
@@ -82,9 +81,11 @@ const Goals = () => {
 		{ id: 3, name: 'Goal 4' },
 	];
 
-	//const dispatch = useDispatch();
-	//const goalState = useSelector((state) => state.goals);
-	//const { goalsList, isLoading, error } = goalState;
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(getGoals());
+	}, [dispatch]);
 
 	return (
 		<GoalsContainer>

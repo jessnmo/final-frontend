@@ -1,6 +1,16 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useState } from 'react';
+//import user from '../features /user';
+/* import {
+	addUsername,
+	addEmail,
+	addPassword,
+	addAccessToken,
+} from '../features /user'; */
+//import userSlice from '../features/user';
+//import { batch, useEffect, useDispatch } from 'react-redux';
+//import { userNavigate } from 'react-router-dom';
 
 const UserInfoContainer = styled.div`
 	padding-top: 1rem;
@@ -76,9 +86,72 @@ const StyledLink = styled(Link)`
 `;
 
 const Signup = () => {
-	const [username, setUsername] = useState('');
+	/* const [username, setUsername] = useState('');
 	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
+	const [password, setPassword] = useState(''); */
+	//const [error, setError] = useState(null);
+	//const accessToken = useState((state) => state.user.accessToken);
+	//const navigate = userNavigate();
+
+	const [userInfo, setUserInfo] = useState({
+		username: '',
+		email: '',
+		password: '',
+	});
+
+	const handleUserInput = (e) => {
+		const { id, value } = e.target;
+		setUserInfo((currentState) => ({
+			...currentState,
+			[id]: value,
+		}));
+	};
+	/* 
+	useEffect(() => {
+		if (accessToken) {
+			navigate('/habits');
+		}
+	}, [accessToken]);
+
+	const dispatch = useDispatch();
+
+	const handleFormSubmit = (e) => {
+		e.preventDefault();
+		const options = {
+			method: 'POST',
+			header: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				username: username,
+				email: email,
+				password: password,
+			}),
+		};
+
+		fetch('https://project-auth-5ohdkk2c7a-uc.a.run.app/', options)
+			.then((res) => res.json())
+			.then((data) => {
+				if (data.success) {
+					batch(() => {
+						dispatch(addUsername.data.res.username);
+						dispatch(addEmail.data.res.email);
+						dispatch(addPassword.data.res.password);
+						dispatch(addAccessToken.data.res.accessToken);
+						dispatch(catchError(null));
+					});
+				} else {
+					batch(() => {
+						dispatch(addUsername(null));
+						dispatch(addEmail(null));
+						dispatch(addPassword(null));
+						dispatch(addAccessToken(null));
+						dispatch(data.res);
+						setCatchError(data.res);
+					});
+				}
+			});
+	}; */
 
 	return (
 		<UserInfoContainer>
@@ -93,8 +166,7 @@ const Signup = () => {
 							id="username"
 							placeholder="username"
 							required
-							value={username}
-							onChange={(e) => setUsername(e.target.value)}
+							onChange={handleUserInput}
 						/>
 						<label htmlFor="email">Email</label>
 						<input
@@ -102,17 +174,16 @@ const Signup = () => {
 							id="email"
 							placeholder="email"
 							required
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
+							onChange={handleUserInput}
 						/>
 						<label htmlFor="password">Password</label>
 						<input
 							type="password"
 							id="password"
 							placeholder="password"
+							minLength="8"
 							required
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
+							onChange={handleUserInput}
 						/>
 					</InputSection>
 					<BtnContainer>
@@ -121,7 +192,7 @@ const Signup = () => {
 				</FormContainer>
 				<section>
 					Already have an account? {''}
-					<StyledLink to="/signin">Log in here</StyledLink>
+					<StyledLink to="/login">Log in here</StyledLink>
 				</section>
 			</UserActionContainer>
 		</UserInfoContainer>

@@ -1,16 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const initUserState = {
+	loginUser: null, //store input
+	signupState: {
+		loading: 'idle',
+		error: null,
+		currentRequestId: undefined, //not sending multiple requests at the same time
+	},
+	//loginState:
+};
+
 const userSlice = createSlice({
 	name: 'user',
-	initialState: {
-		userId: null,
-		username: null,
-		email: null,
-		accessToken: null,
-		error: null,
-	},
+	initialState: initUserState,
 	reducers: {
-		addUsername: (state, action) => {
+		/* 	addUsername: (state, action) => {
 			state.username = action.payload;
 		},
 		addEmail: (state, action) => {
@@ -30,6 +34,10 @@ const userSlice = createSlice({
 			state.username = null;
 			state.email = null;
 			state.userId = null;
-		},
+		}, */
 	},
+	extraReducers: {},
 });
+
+//const { addUsername, addEmail, addUserId } = userSlice.actions;
+export default userSlice.reducer;
