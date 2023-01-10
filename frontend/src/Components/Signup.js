@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { registerUser } from '../features /userSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 
 const UserInfoContainer = styled.div`
 	padding-top: 1rem;
@@ -78,38 +78,46 @@ const StyledLink = styled(Link)`
 	}
 `;
 
-const ErrorMsg = styled.div`
+/* const ErrorMsg = styled.div`
 	color: red;
-`;
+`; */
 
 const Signup = () => {
 	/* const [username, setUsername] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState(''); */
 
-	const [userInfo, setUserInfo] = useState({
+	/* const [userInfo, setUserInfo] = useState({
 		username: '',
 		email: '',
 		password: '',
-	});
+	}); */
+	const [username, setUsername] = useState('');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
 
 	const userState = useSelector((state) => state.user);
-	const { error } = userState.registerState;
+	//const { error } = userState.registerState;
 	const { loggedInUser } = userState;
 
 	//const userState = useSelector((state) => state.user);
-	const handleUserInfoChange = (e) => {
+	/* const handleUserInfoChange = (e) => {
 		const { id, value } = e.target;
 		setUserInfo((currentState) => ({
 			...currentState,
-			[id]: value,
+			[id]: value, // returns everything from the currentState and make give the id a value
+			//[value]: currentState.e.target,
 		}));
-	};
+	}; */
 
 	const dispatch = useDispatch();
 
 	const handleSubmit = () => {
-		dispatch(registerUser(userInfo));
+		batch(() => {
+			dispatch(registerUser(username));
+			dispatch(registerUser(email));
+			dispatch(registerUser(password));
+		});
 	};
 
 	const navigate = useNavigate;
@@ -119,10 +127,10 @@ const Signup = () => {
 		}
 	}, [loggedInUser, navigate]);
 
-	const findError = (inputName) => {
+	/* const findError = (inputName) => {
 		const errObj = error.find((err) => err.param === inputName);
 		return errObj ? errObj.msg : null;
-	};
+	}; */
 
 	return (
 		<UserInfoContainer>
@@ -132,38 +140,38 @@ const Signup = () => {
 				<FormContainer>
 					<InputSection>
 						<label htmlFor="username">Username</label>
-						{error && <ErrorMsg>{findError('username')}</ErrorMsg>}
+						{/* {error && <ErrorMsg>{findError('username')}</ErrorMsg>} */}
 						<input
 							type="text"
 							id="username"
 							placeholder="username"
 							required
-							//value={username}
-							//onChange={(e) => setUsername(e.target.value)}
-							onChange={handleUserInfoChange}
+							value={username}
+							onChange={(e) => setUsername(e.target.value)}
+							//onChange={handleUserInfoChange}
 						/>
 						<label htmlFor="email">Email</label>
-						{error && <ErrorMsg>{findError('email')}</ErrorMsg>}
+						{/* {error && <ErrorMsg>{findError('email')}</ErrorMsg>} */}
 						<input
 							type="text"
 							id="email"
 							placeholder="email"
 							required
-							//value={email}
-							//onChange={(e) => setEmail(e.target.value)}
-							onChange={handleUserInfoChange}
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+							//onChange={handleUserInfoChange}
 						/>
 						<label htmlFor="password">Password</label>
-						{error && <ErrorMsg>{findError('password')}</ErrorMsg>}
+						{/* {error && <ErrorMsg>{findError('password')}</ErrorMsg>} */}
 						<input
 							type="password"
 							id="password"
 							placeholder="password"
 							minLength="8"
 							required
-							//value={password}
-							//onChange={(e) => setPassword(e.target.value)}
-							onChange={handleUserInfoChange}
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+							//onChange={handleUserInfoChange}
 						/>
 					</InputSection>
 					<BtnContainer>

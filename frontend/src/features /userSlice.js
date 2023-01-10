@@ -13,7 +13,7 @@ const initUserState = {
 
 export const registerUser = createAsyncThunk(
 	'user/register',
-	async (userInfo, thunkAPI) => {
+	async (username, email, password, thunkAPI) => {
 		//error handling, loading state of registerState is pending
 		//request ID thunk API generates has to be the same that's in the registerState
 		const { loading, currentRequestId } =
@@ -23,7 +23,12 @@ export const registerUser = createAsyncThunk(
 		}
 
 		try {
-			const response = await axios.post('user/register', userInfo);
+			const response = await axios.post(
+				'user/register',
+				username,
+				email,
+				password
+			);
 			return response.data;
 		} catch (error) {
 			const { rejectWithValue } = thunkAPI;
